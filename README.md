@@ -1,5 +1,5 @@
 # FemfyApp ~ :computer:
-You can find our App here! [FEMFY](https://api.github.com/emojis](https://femfy-stage.vercel.app/).
+You can find our App here! [FEMFY](https://femfy-stage.vercel.app/).
 
 
 Femfy is a web application designed to manage women gynecological health and encourage early detection of diseases. This platform offers a wide range of services and features designed to accompany users in caring for their reproductive and general female health. 
