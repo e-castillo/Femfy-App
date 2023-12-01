@@ -1,0 +1,82 @@
+<div *ngIf="isSurveyInit === false"
+  #navBar
+  class="py-4 max-sm:py-2 text-dark fixed top-0 lg:z-50 bg-white px-[3vw] w-[100vw] z-10"
+>
+  <nav class="flex justify-between items-center max-w-[1280px] m-auto">
+    <!--<a routerLink="" class="text-xl font-bold"></a>-->
+    <div class="flex items-center gap-[10px] cursor-pointer" routerLink="">
+      <img class="h-[40px]" src="./assets/images/isotipo.svg" alt="" />
+      <h1
+        style="user-select: none"
+        class="font-semibold text-[40px] text-black italic"
+      >
+        femfy
+      </h1>
+    </div>
+    <div
+      class="flex space-x-4 text-[20px] items-center"
+    >
+      <a
+        class="p-3 max-lg:hidden"
+        *ngFor="let menu of isLogging ? menuLogueado : menuNoLogueado"
+        routerLinkActive="text-white font-semibold bg-[#7c2385] rounded-full"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="{{ menu.path }}"
+        >{{ menu.label }}</a
+      >
+      <ng-container *ngIf="isLogging">
+        <ng-container *ngIf="icon">
+          <button
+            #myTooltip="matTooltip"
+            (click)="myTooltip.show()"
+            matTooltip="{{ icon?.desc }}"
+            class="block"
+          >
+            <mat-icon class="m-2 mt-4 animate-bounce" [svgIcon]="icon?.name"></mat-icon>
+          </button>
+        </ng-container>
+        <button
+          class="flex items-center"
+          [matMenuTriggerFor]="menuProfileButton"
+        >
+          <ng-container *ngIf="!getProfileImage()">
+            <img
+              src="./assets/images/account.png"
+              alt="account"
+              class="w-[50px] h-[50px] object-cover rounded-full border-4"
+              [ngClass]="{ 'border-[#7c2385]': isProfileActive() }"
+            />
+          </ng-container>
+          <ng-container *ngIf="picture[0]?.url">
+            <img
+              [src]="picture[0]?.url"
+              class="w-[50px] h-[50px] object-cover rounded-full border-4 border-[#7c2385]"
+              [ngClass]="{ 'border-[#7c2385]': isProfileActive() }"
+            />
+          </ng-container>
+          <mat-icon class="text-[#7c2385]">arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #menuProfileButton="matMenu">
+          <ng-container *ngFor="let item of menuProfile">
+            <button
+              mat-menu-item
+              routerLinkActive="text-[black] font-semibold"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="{{ item.path }}"
+            >
+              <mat-icon color="{{ item.iconColor }}">{{ item.icon }}</mat-icon>
+              {{ item.label }}
+            </button>
+            <div class="px-2">
+              <mat-divider></mat-divider>
+            </div>
+          </ng-container>
+          <button mat-menu-item (click)="logoutUser()">
+            <mat-icon color="warn">logout</mat-icon>
+            Cerrar sesión
+          </button>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </nav>
+</div>
